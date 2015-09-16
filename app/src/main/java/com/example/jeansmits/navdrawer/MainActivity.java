@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private void addDrawerItems() {
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux", "Anderlecht" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -89,12 +89,20 @@ public class MainActivity extends AppCompatActivity
                     case 1:
                         iosAct(view);
                         break;
+                    case 5:
+                        rscaAct(view);
 
                     default:
                         break;
                 }
             }
         });
+    }
+
+    public void rscaAct(View view){
+        Intent intent= new Intent(this, AnderlechtActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 
