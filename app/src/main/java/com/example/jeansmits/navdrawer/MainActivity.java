@@ -1,7 +1,9 @@
 package com.example.jeansmits.navdrawer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.webkit.WebViewFragment;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private int selectedPosition;
+    private String[] items;
 
 
     /**
@@ -75,10 +80,39 @@ public class MainActivity extends AppCompatActivity
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                        andAct(view);
+                        break;
+
+                    case 1:
+                        iosAct(view);
+                        break;
+
+                    default:
+                        break;
+                }
             }
         });
     }
+
+
+    public void andAct(View view){
+        Intent intent=new Intent(this, AndroidActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void iosAct(View view){
+        Intent intent=new Intent(this, IosActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
+
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -101,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
