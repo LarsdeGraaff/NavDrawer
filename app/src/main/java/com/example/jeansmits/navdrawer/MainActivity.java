@@ -3,7 +3,7 @@ package com.example.jeansmits.navdrawer;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.ParseException;
+
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -72,24 +73,33 @@ public class MainActivity extends AppCompatActivity
 
         mTitle = getTitle();
 
-        ParseObject testObject = new ParseObject("TestObject");
+        //putt objects
+
+        final ParseObject testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");
         testObject.saveInBackground();
 
 
+        final ParseObject gameScore = new ParseObject("GameScore");
+        gameScore.put("score", 1337);
+        gameScore.put("playerName", "Sean Plott");
+        gameScore.put("cheatMode", false);
+        gameScore.saveInBackground();
+
         //Retrieving objects
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
-        query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, com.parse.ParseException e) {
-
-            }
+        query.getInBackground("8ReMHV4e85", new GetCallback<ParseObject>() {
 
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
+                    String playerName = gameScore.getString("playerName");
+                    Toast.makeText(MainActivity.this, playerName , Toast.LENGTH_SHORT).show();
+
                     // object will be your game score
                 } else {
+
+
                     // something went wrong
                 }
             }
